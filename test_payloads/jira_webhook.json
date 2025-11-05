@@ -1,0 +1,21 @@
+{
+  "webhookEvent": "jira:issue_updated",
+  "issue": {
+    "key": "PROJ-123",
+    "fields": {
+      "summary": "Fix authentication bug",
+      "description": "Users are unable to login using SSO. The OAuth callback is failing with a 401 error. This started happening after the recent security update.",
+      "labels": [
+        "copilot-fix",
+        "backend",
+        "urgent"
+      ],
+      "priority": {
+        "name": "High"
+      },
+      "issuetype": {
+        "name": "Bug"
+      }
+    }
+  }
+}

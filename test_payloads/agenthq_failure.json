@@ -1,0 +1,7 @@
+{
+  "run_id": "run_xyz789abc123",
+  "status": "failed",
+  "ticket_id": "PROJ-789",
+  "error_message": "Could not locate authentication module in codebase. Please ensure the repository contains authentication-related code.",
+  "completed_at": 1699564900.0
+}

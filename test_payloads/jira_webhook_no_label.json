@@ -1,0 +1,19 @@
+{
+  "webhookEvent": "jira:issue_updated",
+  "issue": {
+    "key": "PROJ-456",
+    "fields": {
+      "summary": "Update documentation",
+      "description": "Update the README with new setup instructions",
+      "labels": [
+        "documentation"
+      ],
+      "priority": {
+        "name": "Low"
+      },
+      "issuetype": {
+        "name": "Task"
+      }
+    }
+  }
+}

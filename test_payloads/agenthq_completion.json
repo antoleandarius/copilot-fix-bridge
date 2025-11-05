@@ -1,0 +1,16 @@
+{
+  "run_id": "run_abc123def456",
+  "status": "completed",
+  "ticket_id": "PROJ-123",
+  "pr_url": "https://github.com/owner/repo/pull/456",
+  "pr_number": 456,
+  "branch_name": "fix/PROJ-123",
+  "commit_sha": "abc123def456789abcdef0123456789abcdef01",
+  "agent_analysis": "Fixed authentication bug by updating OAuth configuration. The issue was caused by incorrect redirect URI validation. Updated src/auth/oauth.py to properly handle callback URLs and added comprehensive test coverage.",
+  "files_changed": [
+    "src/auth/oauth.py",
+    "src/config/oauth_config.py",
+    "tests/test_auth_oauth.py"
+  ],
+  "completed_at": 1699564800.0
+}
