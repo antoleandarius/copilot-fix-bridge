@@ -153,38 +153,41 @@ jobs:
       - name: Push branch
         run: |
           BRANCH_NAME="fix/${{ steps.ticket.outputs.ticket_id }}"
-          git push origin "$BRANCH_NAME"
+          git push -u origin "$BRANCH_NAME"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: fix/${{ steps.ticket.outputs.ticket_id }}
-          title: "fix: ${{ steps.ticket.outputs.ticket_id }} - ${{ github.event.client_payload.ticket_summary }}"
-          body: |
-            ## JIRA Ticket: ${{ steps.ticket.outputs.ticket_id }}
+        run: |
+          TICKET_ID="${{ steps.ticket.outputs.ticket_id }}"
+          TICKET_SUMMARY="${{ github.event.client_payload.ticket_summary }}"
+          TICKET_DESCRIPTION="${{ github.event.client_payload.ticket_description }}"
+          JIRA_URL="${{ steps.ticket.outputs.jira_url }}"
 
-            **Summary:** ${{ github.event.client_payload.ticket_summary }}
+          gh pr create \
+            --title "fix: ${TICKET_ID} - ${TICKET_SUMMARY}" \
+            --body "## JIRA Ticket: ${TICKET_ID}
 
-            **JIRA Link:** [${{ steps.ticket.outputs.ticket_id }}](${{ steps.ticket.outputs.jira_url }})
+          **Summary:** ${TICKET_SUMMARY}
 
-            ---
+          **JIRA Link:** [${TICKET_ID}](${JIRA_URL})
 
-            ### Description
-            ${{ github.event.client_payload.ticket_description }}
+          ---
 
-            ---
+          ### Description
+          ${TICKET_DESCRIPTION}
 
-            ### Changes
-            - Generated HTML file: `${{ steps.ticket.outputs.ticket_id }}.html`
-            - Contains ticket ID and description as requested
+          ---
 
-            ---
+          ### Changes
+          - Generated HTML file: \`${TICKET_ID}.html\`
+          - Contains ticket ID and description as requested
 
-            **Automated PR created by Copilot Fix Bridge**
-          labels: |
-            copilot-fix
-            automated
-          draft: false
+          ---
+
+          **Automated PR created by Copilot Fix Bridge**" \
+            --label "copilot-fix,automated" \
+            --base main \
+            --head "fix/${TICKET_ID}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
