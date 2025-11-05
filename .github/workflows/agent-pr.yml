@@ -185,9 +185,11 @@ jobs:
 
           ---
 
-          **Automated PR created by Copilot Fix Bridge**" \
-            --label "copilot-fix,automated" \
+          🤖 **Automated PR created by Copilot Fix Bridge**" \
             --base main \
             --head "fix/${TICKET_ID}"
+
+          # Add labels if they exist (ignore errors if they don't)
+          gh pr edit "fix/${TICKET_ID}" --add-label "copilot-fix,automated" 2>/dev/null || echo "Labels not found, skipping..."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
